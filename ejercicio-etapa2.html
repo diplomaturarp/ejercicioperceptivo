@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La exploración que el terapeuta acompaña</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f8f7f4;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  #passage {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e1dc;
+  }
+  .etiqueta {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .etiqueta-ejercicio { color: #BA7517; }
+  h2 {
+    font-size: 22px;
+    font-weight: normal;
+    margin: 8px 0 12px;
+    color: #1a1a18;
+  }
+  .bajada {
+    font-size: 14px;
+    color: #5F5E5A;
+    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  .narrar {
+    background: #eeede8;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .sofia-bloque {
+    border-left: 3px solid #5DCAA5;
+    background: #f0faf5;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+  }
+  .sofia-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #1D9E75;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 6px;
+    font-family: Arial, sans-serif;
+  }
+  .sofia-texto {
+    font-style: italic;
+    font-size: 15px;
+    color: #1a1a18;
+  }
+  .decidir-bloque {
+    border: 1.5px solid #BA7517;
+    border-radius: 8px;
+    padding: 18px;
+    margin-top: 16px;
+    background: #fffdf7;
+  }
+  .decidir-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #BA7517;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 14px;
+    font-family: Arial, sans-serif;
+  }
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: #fff;
+    cursor: pointer;
+    color: #1a1a18;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .opcion:hover {
+    border-color: #BA7517;
+    background: #fdf7ec;
+  }
+  .opcion:last-child { margin-bottom: 0; }
+  .badge {
+    font-size: 11px;
+    font-weight: bold;
+    color: #BA7517;
+    background: #FAEEDA;
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-family: Arial, sans-serif;
+  }
+  .cierre {
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .cierre-verde { border: 1.5px solid #1D9E75; background: #edf8f3; }
+  .cierre-gris  { border: 1.5px solid #c0bfba; background: #f5f4f0; }
+  .cierre-coral { border: 1.5px solid #D85A30; background: #fdf2ee; }
+  .resultado-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+  }
+  .label-verde { color: #0F6E56; }
+  .label-gris  { color: #5F5E5A; }
+  .label-coral { color: #993C1D; }
+  .separador {
+    border: none;
+    border-top: 1px solid #d8d7d2;
+    margin: 20px 0;
+  }
+  .btn-comenzar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #1D9E75;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s;
+  }
+  .btn-comenzar:hover { background: #0F6E56; }
+  .btn-continuar {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: 1.5px solid #1D9E75;
+    color: #0F6E56;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #fff;
+    font-family: Arial, sans-serif;
+    transition: background 0.15s;
+  }
+  .btn-continuar:hover { background: #edf8f3; }
+  .btn-volver {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 9px 20px;
+    background: #f0ede6;
+    border: 1px solid #c0bfba;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #3d3d3a;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-volver:hover { background: #e4e1d8; }
+</style>
+</head>
+<body>
+<div id="passage"></div>
+
+<script>
+const passages = {
+
+  "Inicio": () => `
+    <span class="etiqueta etiqueta-ejercicio">EJERCICIO DE ENTRENAMIENTO PERCEPTIVO · ETAPA 2</span>
+    <h2>La exploración que el terapeuta acompaña</h2>
+    <p class="bajada">Vas a acompañar una sesión con Sofía. En cuatro momentos vas a tomar una decisión como terapeuta. Cada decisión lleva a un resultado distinto. No hay tiempo límite. Lee con calma antes de elegir.</p>
+    <div class="narrar">Sofía tiene 38 años. Hace tres semanas que trabaja contigo. Desde el primer encuentro, hay una frase que vuelve de distintas formas: lo que ella quiere no tiene lugar.</div>
+    <button class="btn-comenzar" onclick="ir('Decisión 1')">Comenzar la sesión →</button>
+  `,
+
+  "Decisión 1": () => `
+    <div class="narrar">Sofía llega a la sesión. Se sienta y empieza a hablar antes de que digas algo.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«No sé por qué lo sigo intentando. En el trabajo, con mi pareja, con mi familia... siempre termina siendo lo mismo. Lo que yo quiero no tiene lugar.»</span>
+    </div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Sofía está situada')"><span class="badge">A</span> Pedir que describa una situación concreta de esta semana</button>
+      <button class="opcion" onclick="ir('Sofía está situada')"><span class="badge">B</span> Preguntar cómo se siente al decir eso</button>
+      <button class="opcion" onclick="ir('Sofía está situada')"><span class="badge">C</span> Escuchar en silencio y esperar que continúe</button>
+    </div>
+  `,
+
+  "Sofía está situada": () => `
+    <div class="narrar">Sofía elige hablar de una situación con su pareja. Describe una escena de la semana pasada: propuso salir el sábado, él prefirió quedarse. Ella no insistió.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«No me enojé, no dije nada. Simplemente acepté. Y me quedé con esa sensación de siempre. Como que mi lugar no existe.»</span>
+    </div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Lo raro es que esto me suena de mucho antes. No sé... me suena conocido.»</span>
+    </div>
+    <button class="btn-continuar" onclick="ir('Decisión 2')">Continuar →</button>
+  `,
+
+  "Decisión 2": () => `
+    <div class="narrar">Sofía hizo una pausa. La frase «me suena conocido» quedó en el aire.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Sofía recuerda')"><span class="badge">A</span> Preguntar: «¿De dónde te suena conocido eso?»</button>
+      <button class="opcion" onclick="ir('Sofía busca el origen')"><span class="badge">B</span> Preguntar: «¿Cuándo fue la primera vez que sentiste que lo que querías no importaba?»</button>
+      <button class="opcion" onclick="ir('Inducción')"><span class="badge">C</span> Decir: «Eso que describes viene de mucho antes de tu pareja, ¿verdad?»</button>
+    </div>
+  `,
+
+  "Sofía recuerda": () => `
+    <div class="narrar">Sofía se queda en silencio unos segundos. No parece buscar — parece que algo emerge solo.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Hay algo... con mi papá. De cuando era chica. No sé bien qué, pero me viene eso.»</span>
+    </div>
+    <div class="narrar">Algo está surgiendo. No está claro todavía. Sofía lo está viendo.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 3')">Continuar →</button>
+  `,
+
+  "Sofía busca el origen": () => `
+    <div class="narrar">Sofía frunce el ceño levemente. Empieza a buscar en el tiempo, como siguiendo una instrucción.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«La primera vez... no sé. Tendría que pensar. Cuando era chica, supongo.»</span>
+    </div>
+    <div class="narrar">Hace una pausa larga. Parece estar buscando un origen preciso más que reconociendo una resonancia.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Hay algo... con mi papá.»</span>
+    </div>
+    <button class="btn-continuar" onclick="ir('Decisión 3')">Continuar →</button>
+  `,
+
+  "Decisión 3": () => `
+    <div class="narrar">Sofía continúa. Tenía nueve años. Quería hacer danza. Sus amigas iban.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Le pedí a mi papá que me anotara. Él dijo que no. Que era una pérdida de tiempo.»</span>
+    </div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Y yo... no volví a preguntar. Nunca más le pedí nada de eso.»</span>
+    </div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('La escena está identificada')"><span class="badge">A</span> Escuchar en silencio y acompañar la pausa</button>
+      <button class="opcion" onclick="ir('Contexto disperso')"><span class="badge">B</span> Preguntar cómo era la relación con su padre en general</button>
+      <button class="opcion" onclick="ir('La escena está identificada')"><span class="badge">C</span> Preguntar: «¿Qué sentiste cuando él dijo que no?»</button>
+      <button class="opcion" onclick="ir('La escena está identificada')"><span class="badge">D</span> Asentir y esperar que Sofía continúe sola</button>
+    </div>
+  `,
+
+  "La escena está identificada": () => `
+    <div class="narrar">Sofía se queda en silencio. Luego dice algo en voz baja.</div>
+    <div class="sofia-bloque">
+      <span class="sofia-label">SOFÍA DICE</span>
+      <span class="sofia-texto">«Qué raro. No había pensado en eso hace años.»</span>
+    </div>
+    <div class="narrar">La escena está identificada. Sofía tiene nueve años. Quiso hacer danza. Su padre dijo que no. Lo que hizo ella: dejó de preguntar.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 4')">Continuar →</button>
+  `,
+
+  "Decisión 4": () => `
+    <div class="narrar">Quedan pocos minutos de sesión. Sofía está en silencio, mirando un punto fijo.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Camino completo')"><span class="badge">A</span> Preguntar: «¿Reconoces algo de eso en lo que traes hoy?»</button>
+      <button class="opcion" onclick="ir('Conexión entregada')"><span class="badge">B</span> Decir: «Lo de tu pareja es lo mismo que lo que pasó con tu papá»</button>
+      <button class="opcion" onclick="ir('Cierre abierto')"><span class="badge">C</span> Cerrar la sesión sin nombrar la conexión</button>
+    </div>
+  `,
+
+  "Camino completo": () => `
+    <div class="cierre cierre-verde">
+      <span class="resultado-label label-verde">RESULTADO DE TU DECISIÓN</span>
+      Sofía tarda unos segundos. Luego dice: «Espera... esto de dejar de preguntar. Lo hago también con mi pareja. Y con mi jefa. Y con...». Se detiene. Lo está viendo ella.<br><br>
+      No nombraste la conexión. Ella la encontró.<br><br>
+      Eso es lo que busca la Etapa 2: que el consultante reconozca el patrón sin que el terapeuta lo entregue ya armado. Tu pregunta abrió el espacio. Sofía hizo el trabajo.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Conexión entregada": () => `
+    <div class="cierre cierre-gris">
+      <span class="resultado-label label-gris">RESULTADO DE TU DECISIÓN</span>
+      Sofía asiente. Dice «sí, tiene sentido». Pero la conexión la hiciste tú, no ella.<br><br>
+      El trabajo de Etapa 2 es acompañar al consultante a que reconozca el patrón por sí mismo. Cuando el terapeuta entrega la conexión ya formulada, el consultante puede aceptarla intelectualmente sin que haya un movimiento perceptivo real.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Cierre abierto": () => `
+    <div class="cierre cierre-gris">
+      <span class="resultado-label label-gris">RESULTADO DE TU DECISIÓN</span>
+      La sesión cierra sin que la conexión sea nombrada.<br><br>
+      Sofía estaba lista: la escena había emergido, el silencio estaba presente. Era el momento. Quedarse callado por precaución también es una posición. A veces el terapeuta evita intervenir por miedo a equivocarse — eso también merece observación.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Inducción": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Dijiste: «Eso que describes viene de mucho antes de tu pareja, ¿verdad?»<br><br>
+      Sofía asintió. Pero lo afirmaste tú. La inducción no siempre es una pregunta directa — a veces es una afirmación con forma de pregunta que ya contiene la respuesta. Sofía ahora busca confirmar lo que dijiste en lugar de explorar lo que ella ve por sí misma.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Contexto disperso": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Preguntaste por la relación general con el padre. Sofía empezó a hablar: el carácter de él, la dinámica familiar, el hermano mayor...<br><br>
+      La escena puntual se perdió. Lo que había emergido — nueve años, la danza, «dejé de preguntar» — quedó enterrado bajo información general. En Etapa 2, el foco es la escena específica. Cuando el terapeuta expande el contexto en ese momento, pierde el hilo que estaba apareciendo.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `
+};
+
+function ir(nombre) {
+  const fn = passages[nombre];
+  if (!fn) return;
+  document.getElementById('passage').innerHTML = fn();
+  window.scrollTo(0, 0);
+}
+
+ir('Inicio');
+</script>
+</body>
+</html>
