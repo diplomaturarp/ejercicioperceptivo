@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El momento que el terapeuta sostiene</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f8f7f4;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  #passage {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e1dc;
+  }
+  .etiqueta {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .etiqueta-ejercicio { color: #533489; }
+  h2 {
+    font-size: 22px;
+    font-weight: normal;
+    margin: 8px 0 12px;
+    color: #1a1a18;
+  }
+  .bajada {
+    font-size: 14px;
+    color: #5F5E5A;
+    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  .narrar {
+    background: #eeede8;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .consultante-bloque {
+    border-left: 3px solid #D85A30;
+    background: #fdf2ee;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+  }
+  .consultante-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #993C1D;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 6px;
+    font-family: Arial, sans-serif;
+  }
+  .consultante-texto {
+    font-style: italic;
+    font-size: 15px;
+    color: #1a1a18;
+  }
+  .datos-bloque {
+    border: 1px solid #c0bfba;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    background: #f5f4f0;
+  }
+  .datos-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #5F5E5A;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+  }
+  .datos-fila {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+  }
+  .datos-col {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    line-height: 1.5;
+  }
+  .datos-col-a { background: #E1F5EE; color: #085041; }
+  .datos-col-b { background: #EEEDFE; color: #26215C; }
+  .datos-col-header {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .decidir-bloque {
+    border: 1.5px solid #533489;
+    border-radius: 8px;
+    padding: 18px;
+    margin-top: 16px;
+    background: #faf9fe;
+  }
+  .decidir-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #533489;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 14px;
+    font-family: Arial, sans-serif;
+  }
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: #fff;
+    cursor: pointer;
+    color: #1a1a18;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .opcion:hover { border-color: #533489; background: #f4f3fd; }
+  .opcion:last-child { margin-bottom: 0; }
+  .badge {
+    font-size: 11px;
+    font-weight: bold;
+    color: #533489;
+    background: #EEEDFE;
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-family: Arial, sans-serif;
+  }
+  .cierre {
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .cierre-verde { border: 1.5px solid #1D9E75; background: #edf8f3; }
+  .cierre-gris  { border: 1.5px solid #c0bfba; background: #f5f4f0; }
+  .cierre-coral { border: 1.5px solid #D85A30; background: #fdf2ee; }
+  .resultado-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    display: block;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+  }
+  .label-verde { color: #0F6E56; }
+  .label-gris  { color: #5F5E5A; }
+  .label-coral { color: #993C1D; }
+  .separador { border: none; border-top: 1px solid #d8d7d2; margin: 20px 0; }
+  .btn-comenzar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #533489;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s;
+  }
+  .btn-comenzar:hover { background: #3C3489; }
+  .btn-continuar {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: 1.5px solid #533489;
+    color: #3C3489;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #fff;
+    font-family: Arial, sans-serif;
+    transition: background 0.15s;
+  }
+  .btn-continuar:hover { background: #EEEDFE; }
+  .btn-volver {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 9px 20px;
+    background: #f0ede6;
+    border: 1px solid #c0bfba;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #3d3d3a;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-volver:hover { background: #e4e1d8; }
+</style>
+</head>
+<body>
+<div id="passage"></div>
+
+<script>
+const passages = {
+
+  "Inicio": () => `
+    <span class="etiqueta etiqueta-ejercicio">EJERCICIO DE ENTRENAMIENTO PERCEPTIVO · ETAPA 3</span>
+    <h2>El momento que el terapeuta sostiene</h2>
+    <p class="bajada">Vas a acompañar una sesión con Elena en el momento más delicado del proceso RP: el instante en que la comprensión aparece. En cuatro momentos vas a tomar una decisión. Lo que se entrena acá no es qué decir sino cuándo callarse y cómo sostener lo que ya está ocurriendo.</p>
+    <div class="narrar">Elena tiene 41 años. Lleva cuatro sesiones trabajando contigo. En las etapas anteriores identificó su conflicto actual y la escena infantil que lo sostiene. Hoy entrás a la sesión con esos dos registros claros.</div>
+    <button class="btn-comenzar" onclick="ir('Datos previos')">Comenzar la sesión →</button>
+  `,
+
+  "Datos previos": () => `
+    <div class="datos-bloque">
+      <span class="datos-label">LO QUE EL PROCESO IDENTIFICÓ HASTA AHORA</span>
+      <div class="datos-fila">
+        <div class="datos-col datos-col-a">
+          <span class="datos-col-header">ESCENA ACTUAL</span>
+          Su pareja toma decisiones importantes sin consultarle. Ella no dice nada. Emoción: invisibilidad.
+        </div>
+        <div class="datos-col datos-col-b">
+          <span class="datos-col-header">ESCENA INFANTIL</span>
+          A los ocho años, su madre organizó su cuarto sin preguntarle. Ella no protestó. Emoción: invisibilidad.
+        </div>
+      </div>
+    </div>
+    <div class="narrar">Elena entra a la sesión tranquila. Dice que esta semana le pasó algo parecido y que quiere contarlo.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 1')">Continuar →</button>
+  `,
+
+  "Decisión 1": () => `
+    <div class="consultante-bloque">
+      <span class="consultante-label">ELENA DICE</span>
+      <span class="consultante-texto">«El miércoles mi pareja reservó las vacaciones sin preguntarme. Eligió el destino, las fechas, todo. Y yo... no dije nada. Me quedé callada como siempre.»</span>
+    </div>
+    <div class="narrar">Los datos de las dos escenas están frente a vos. El paralelismo es claro.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Interpretación ofrecida')"><span class="badge">A</span> Decir: «Eso que describís es exactamente lo mismo que lo que pasó con tu mamá. Tu pareja ocupa el mismo lugar»</button>
+      <button class="opcion" onclick="ir('Elena ve el paralelo')"><span class="badge">B</span> Mostrar los datos: «En la escena de esta semana, ¿qué ocurrió y qué hiciste? ¿Y en la escena de los ocho años?»</button>
+      <button class="opcion" onclick="ir('Elena ve el paralelo')"><span class="badge">C</span> Preguntar: «¿Esto te recuerda a algo que ya hayamos visto juntos?»</button>
+      <button class="opcion" onclick="ir('Consuelo prematuro')"><span class="badge">D</span> Decir: «Es muy comprensible que te hayas quedado callada, es un patrón muy arraigado»</button>
+    </div>
+  `,
+
+  "Interpretación ofrecida": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Elena asiente. Dice «sí, tiene sentido». Pero la conexión llegó de vos, no de ella.<br><br>
+      En Etapa 3 el terapeuta muestra los datos objetivos — lo que se repite en ambas escenas — para que el consultante los vea por sí mismo. Cuando el terapeuta nombra la interpretación antes de que el consultante la alcance, le quita el movimiento perceptivo. Elena puede entender intelectualmente lo que dijiste, pero eso no es el instante santo. El instante santo ocurre cuando la mente lo ve sola.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Consuelo prematuro": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Elena se siente comprendida, pero el trabajo se detuvo ahí.<br><br>
+      Decir «es muy comprensible» valida la experiencia emocional pero desactiva la observación. En Etapa 3 no se consuela — se acompaña a que la mente vea lo que está haciendo. El consuelo cierra el espacio que la comprensión necesita para aparecer.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Elena ve el paralelo": () => `
+    <div class="narrar">Elena se queda quieta. Sus ojos se mueven levemente, como si estuviera comparando algo internamente.</div>
+    <div class="consultante-bloque">
+      <span class="consultante-label">ELENA DICE</span>
+      <span class="consultante-texto">«En los dos casos... alguien decide por mí. Y en los dos casos yo no digo nada.»</span>
+    </div>
+    <div class="consultante-bloque">
+      <span class="consultante-label">ELENA DICE</span>
+      <span class="consultante-texto">«Es la misma escena. Son exactamente lo mismo.»</span>
+    </div>
+    <div class="narrar">Algo está ocurriendo. Elena está viendo el patrón por sí misma.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 2')">Continuar →</button>
+  `,
+
+  "Decisión 2": () => `
+    <div class="narrar">Elena terminó de decir «son exactamente lo mismo». Hay un silencio. Su mirada cambió.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Silencio roto')"><span class="badge">A</span> Preguntar: «¿Y qué creés que significa eso? ¿Por qué pensás que lo repetís?»</button>
+      <button class="opcion" onclick="ir('El momento ocurre')"><span class="badge">B</span> Quedarte en silencio y sostener la presencia</button>
+      <button class="opcion" onclick="ir('Silencio roto')"><span class="badge">C</span> Decir: «Muy bien, estás viendo algo importante»</button>
+      <button class="opcion" onclick="ir('El momento ocurre')"><span class="badge">D</span> Asentir levemente sin decir nada</button>
+    </div>
+  `,
+
+  "Silencio roto": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Elena sale del estado en que estaba. Empieza a pensar en voz alta, a buscar explicaciones.<br><br>
+      El instante santo no se analiza mientras ocurre — se sostiene. Interrumpirlo con una pregunta o con una valoración («muy bien») desplaza a Elena del estado de comprensión al estado de análisis. Son dos movimientos distintos. Cuando el momento está ocurriendo, la acción del terapeuta es el silencio.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "El momento ocurre": () => `
+    <div class="narrar">El silencio se extiende. Elena respira profundo. Sus ojos se llenan de lágrimas, pero no llora — es algo más quieto que eso.</div>
+    <div class="consultante-bloque">
+      <span class="consultante-label">ELENA DICE</span>
+      <span class="consultante-texto">«No es mi pareja. No era mi mamá. Soy yo la que desaparece.»</span>
+    </div>
+    <div class="narrar">La comprensión llegó. Elena lo vio. El conflicto se reubicó en la mente, no en el mundo.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 3')">Continuar →</button>
+  `,
+
+  "Decisión 3": () => `
+    <div class="narrar">Elena dijo «soy yo la que desaparece». Hay calma en la sala. Ella está quieta.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Momento prolongado')"><span class="badge">A</span> Preguntar: «¿Y por qué creés que desaparecés? ¿Qué pensás que lo origina?»</button>
+      <button class="opcion" onclick="ir('Momento prolongado')"><span class="badge">B</span> Decir: «Esto que estás viendo es muy profundo. Hay mucho por explorar acá»</button>
+      <button class="opcion" onclick="ir('Confirmación simple')"><span class="badge">C</span> Decir en voz baja: «Lo que ves ahora es tuyo»</button>
+      <button class="opcion" onclick="ir('Confirmación simple')"><span class="badge">D</span> Dejar pasar unos segundos y luego preguntar suavemente: «¿Cómo estás?»</button>
+    </div>
+  `,
+
+  "Momento prolongado": () => `
+    <div class="cierre cierre-gris">
+      <span class="resultado-label label-gris">RESULTADO DE TU DECISIÓN</span>
+      Elena sale del estado de comprensión y entra en modo explicativo. La sesión avanza, pero el momento ya pasó.<br><br>
+      Cuando la comprensión llegó, el trabajo de Etapa 3 estaba completo. Intentar profundizar o ampliar lo que ocurrió desplaza a Elena de la experiencia a la interpretación de la experiencia. El terapeuta no prolonga el instante santo — lo sostiene mientras dura y lo cierra con cuidado cuando termina.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Confirmación simple": () => `
+    <div class="narrar">Elena asiente. Dice «sí» en voz baja. Hay algo distinto en cómo está sentada.</div>
+    <div class="consultante-bloque">
+      <span class="consultante-label">ELENA DICE</span>
+      <span class="consultante-texto">«Me siento rara. Pero bien. Como que algo se acomodó.»</span>
+    </div>
+    <div class="narrar">Los indicadores están presentes: calma, alivio, una mirada más abierta. La etapa llegó a su cierre natural.</div>
+    <button class="btn-continuar" onclick="ir('Decisión 4')">Continuar →</button>
+  `,
+
+  "Decisión 4": () => `
+    <div class="narrar">Quedan diez minutos de sesión. Elena está tranquila. Dijo que algo se acomodó.</div>
+    <div class="decidir-bloque">
+      <span class="decidir-label">¿QUÉ DECIDES HACER?</span>
+      <button class="opcion" onclick="ir('Camino completo')"><span class="badge">A</span> Decir: «Quedémonos con eso. No hace falta agregar nada más hoy»</button>
+      <button class="opcion" onclick="ir('Apertura prematura')"><span class="badge">B</span> Decir: «Ahora que viste esto, hablemos de cómo aplicarlo con tu pareja»</button>
+      <button class="opcion" onclick="ir('Cierre apresurado')"><span class="badge">C</span> Decir: «Perfecto, entonces para la próxima sesión pensá en tres situaciones donde esto se repite»</button>
+    </div>
+  `,
+
+  "Camino completo": () => `
+    <div class="cierre cierre-verde">
+      <span class="resultado-label label-verde">RESULTADO DE TU DECISIÓN</span>
+      Elena sonríe levemente. La sesión cierra en silencio.<br><br>
+      El instante santo no necesita ser comentado, analizado ni convertido en tarea. Necesita ser sostenido y cerrado con cuidado. Decir «no hace falta agregar nada más hoy» es el cierre metodológicamente correcto: confirma que lo que ocurrió fue suficiente y protege la comprensión de ser disuelta por el análisis inmediato.<br><br>
+      Eso es Etapa 3. El terapeuta mostró los datos, sostuvo el silencio, confirmó sin interpretar, y cerró sin prolongar. La comprensión fue de Elena. El terapeuta fue el espacio donde pudo ocurrir.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Apertura prematura": () => `
+    <div class="cierre cierre-coral">
+      <span class="resultado-label label-coral">RESULTADO DE TU DECISIÓN</span>
+      Elena empieza a pensar en cómo hablar con su pareja. La sesión se desplaza hacia la acción.<br><br>
+      Lo que Elena acaba de ver todavía es frágil. Pasar a «cómo aplicarlo» antes de que la comprensión se asiente convierte el instante santo en punto de partida para resolver el conflicto externo — que es exactamente lo contrario de lo que Etapa 3 trabaja. La comprensión perceptiva necesita tiempo antes de traducirse en conducta.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `,
+
+  "Cierre apresurado": () => `
+    <div class="cierre cierre-gris">
+      <span class="resultado-label label-gris">RESULTADO DE TU DECISIÓN</span>
+      Elena anota la tarea. Pero algo del estado en que estaba se perdió.<br><br>
+      Asignar una tarea inmediatamente después del instante santo traslada la atención del estado interno al ejercicio externo. Puede ser útil más adelante — en Etapa 4 — pero hacerlo en este momento interrumpe el cierre de Etapa 3. Lo que ocurrió no necesita ser convertido en producción todavía.
+    </div>
+    <hr class="separador">
+    <button class="btn-volver" onclick="ir('Inicio')">← Volver al inicio</button>
+  `
+
+};
+
+function ir(nombre) {
+  const fn = passages[nombre];
+  if (!fn) return;
+  document.getElementById('passage').innerHTML = fn();
+  window.scrollTo(0, 0);
+}
+
+ir('Inicio');
+</script>
+</body>
+</html>
